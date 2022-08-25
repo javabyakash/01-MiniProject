@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>in.ashokit</groupId>
 	<artifactId>01-MiniProject</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>01-MiniProject</name>
 	<description>First Mini Project - Manage Insurance Plans</description>
 	<properties>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.ashokit.config.AppPropertiesConfig;
+import in.ashokit.constants.AppConstants;
 import in.ashokit.entity.Plan;
 import in.ashokit.service.IPlanService;
 
@@ -24,8 +26,15 @@ import in.ashokit.service.IPlanService;
 @RestController
 public class PlanController {
 
-	@Autowired
 	private IPlanService planService;
+
+	private Map<String, String> messages;
+
+	public PlanController(IPlanService planService, AppPropertiesConfig propertiesConfig) {
+		this.planService = planService;
+		this.messages = propertiesConfig.getMessages();
+		System.out.println(messages);
+	}
 
 	/**
 	 * This method is used to get all categories
@@ -44,12 +53,12 @@ public class PlanController {
 	 */
 	@PostMapping("/save")
 	public ResponseEntity<String> savePlan(@RequestBody Plan plan) {
-		String msg = "";
+		String msg = AppConstants.EMPTY_STR;
 		boolean isPlanSaved = planService.savePlan(plan);
 		if (isPlanSaved)
-			msg = "PLAN SAVED SUCCESSFULLY!";
+			msg = messages.get(AppConstants.PLAN_SAVE_SUCCESS);
 		else
-			msg = "FAILED TO SAVE THE PLAN!";
+			msg = messages.get(AppConstants.PLAN_SAVE_FAIL);
 
 		return new ResponseEntity<>(msg, HttpStatus.CREATED);
 	}
@@ -84,11 +93,11 @@ public class PlanController {
 	@PutMapping("/update")
 	public ResponseEntity<String> updatePlan(@RequestBody Plan plan) {
 		boolean isPlanUpdated = planService.updatePlan(plan);
-		String msg = "";
+		String msg = AppConstants.EMPTY_STR;
 		if (isPlanUpdated)
-			msg = "PLAN UPDATED SUCCESSFULLY!";
+			msg = messages.get(AppConstants.PLAN_UPDATE_SUCCESS);
 		else
-			msg = "FAILED TO UPDATE THE PLAN!";
+			msg = messages.get(AppConstants.PLAN_UPDATE_FAIL);
 
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
@@ -102,11 +111,11 @@ public class PlanController {
 	@DeleteMapping("/delete/{planId}")
 	public ResponseEntity<String> deletePlan(@PathVariable Integer planId) {
 		boolean isPlanDeleted = planService.deletePlanById(planId);
-		String msg = "";
+		String msg = AppConstants.EMPTY_STR;
 		if (isPlanDeleted)
-			msg = "PLAN DELETED SUCCUSSFULLY!";
+			msg = messages.get(AppConstants.PLAN_DELETE_SUCCESS);
 		else
-			msg = "FAILED TO DELETE THE PLAN";
+			msg = messages.get(AppConstants.PLAN_DELETE_FAIL);
 
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
@@ -120,11 +129,11 @@ public class PlanController {
 	@PutMapping("/change-status/{planId}/{status}")
 	public ResponseEntity<String> changeStatus(@PathVariable Integer planId, @PathVariable String status) {
 		boolean isStatusChanged = planService.planStatusChange(planId, status);
-		String msg = "";
+		String msg = AppConstants.EMPTY_STR;
 		if (isStatusChanged)
-			msg = "PLAN STATUS CHANGED SUCCESSULLY!";
+			msg = messages.get(AppConstants.PLAN_STATUS_SUCCESS);
 		else
-			msg = "FAILED TO CHANGE THE PLAN STATUS!";
+			msg = messages.get(AppConstants.PLAN_STATUS_FAIL);
 
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}

@@ -31,6 +31,7 @@ public class Plan {
 	
 	@Column(name="PLAN_CATEGORY_ID")
 	private Integer planCategoryId;
+	
 	@Column(name="STATUS")
 	private String activeDeactiveStatus;
 	

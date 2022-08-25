@@ -1,0 +1,24 @@
+server:
+  port: 9090
+  
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    password: 21jrtp
+    url: jdbc:h2:mem:testdb
+    username: 21jrtp
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  
+plan-api:
+  messages:
+    plan-save-success: PLAN SAVED SUCCESSFULLY!
+    plan-save-fail: FAIL TO SAVE THE PLAN!
+    plan-update-success: PLAN UPDATED SUCCESSFULLY!
+    plan-update-fail: FAIL TO UPDATE THE PLAN!  
+    plan-delete-success: PLAN DELETED SUCCUSSFULLY!
+    plan-delete-fail: FAIL TO DELETE THE PLAN
+    plan-status-success: PLAN STATUS CHANGED SUCCESSULLY!
+    plan-status-fail: FAIL TO CHANGE THE PLAN STATUS!
